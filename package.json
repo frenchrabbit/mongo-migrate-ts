@@ -1,6 +1,6 @@
 {
   "name": "@frabbit/mongo-migrate-ts",
-  "version": "1.0.22",
+  "version": "1.0.25",
   "main": "dist/lib/index.js",
   "types": "dist/lib/index.d.ts",
   "bin": {
@@ -21,7 +21,8 @@
     "test:ci": "jest --runInBand --ci",
     "clean": "rimraf dist",
     "release": "semantic-release",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "prepublishOnly": "yarn build && yarn test"
   },
   "license": "MIT",
   "devDependencies": {
