@@ -58,7 +58,7 @@ describe('new command', () => {
       migrationsDir: configMock.migrationsDir,
       templateFile: templateFile,
     });
-    const fileName = `${newDate}_Migration`;
+    const fileName = `${newDate}-migration`;
     const expectedMigrationsPath = `${configMock.migrationsDir}/${fileName}.ts`;
     const expectedTemplateFileText = `class Migration${newDate} template file contents`;
 
@@ -89,7 +89,31 @@ describe('new command', () => {
       migrationsDir: configMock.migrationsDir,
     });
 
-    const fileName = `${+new Date()}_Migration`;
+    const fileName = `${+new Date()}-migration`;
+
+    const expectedMigrationsPath = `${configMock.migrationsDir}/${fileName}.ts`;
+
+    expect(defaultTemplateSpy).toHaveBeenCalled();
+    expect(writeFileSyncSpy).toHaveBeenCalledWith(
+      expectedMigrationsPath,
+      defaultTemplateText
+    );
+  });
+
+  it('should use the default template text if no template file provided', () => {
+    const defaultTemplateText = 'default template file contents';
+
+    (fs.existsSync as jest.Mock).mockReturnValue(false);
+    (newModule.defaultMigrationTemplate as jest.Mock).mockReturnValue(
+      defaultTemplateText
+    );
+
+    newModule.newCommand({
+      migrationName: 'migration-name',
+      migrationsDir: configMock.migrationsDir,
+    });
+
+    const fileName = `${+new Date()}-migration-name`;
 
     const expectedMigrationsPath = `${configMock.migrationsDir}/${fileName}.ts`;
 

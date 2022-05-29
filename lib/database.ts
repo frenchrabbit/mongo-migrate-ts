@@ -17,7 +17,7 @@ export interface MigrationModel {
 
 export const mongoConnect = async (
   uri: string,
-  database: string,
+  database?: string,
   options?: MongoClientOptions
 ): Promise<DatabaseConnection> => {
   const client = options

@@ -20,18 +20,13 @@ export const cli = (config?: Config): void => {
     });
   if (config) {
     program
-      .command('new')
+      .command('create')
       .description('Create a new migration file under migrations directory')
       .storeOptionsAsProperties(false)
-      .option('-n, --name <name>', 'the migration name')
+      .argument('<name>', 'the migration name')
       .option('-t, --template-file <path>', 'The template file to use')
-      .action((opts) => {
-        let name = opts.name;
+      .action((migrationName, opts) => {
         let templateFile = opts.templateFile;
-
-        if (typeof opts.name !== 'string' || opts.name.length === 0) {
-          name = undefined;
-        }
 
         if (
           typeof opts.templateFile !== 'string' ||
@@ -41,7 +36,7 @@ export const cli = (config?: Config): void => {
         }
 
         newCommand({
-          migrationName: name,
+          migrationName,
           migrationsDir: config.migrationsDir,
           templateFile: templateFile,
         });

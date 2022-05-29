@@ -9,13 +9,16 @@ interface CommandNewOptions {
 
 export const defaultMigrationTemplate = (className: string) => {
   return `import { Db } from 'mongodb'
-import { MigrationInterface } from 'mongo-migrate-ts';
+import { MigrationInterface } from '@frabbit/mongo-migrate-ts';
 
 export class ${className} implements MigrationInterface {
+
   public async up(db: Db): Promise<any> {
+    // TODO: Implement migration
   }
 
   public async down(db: Db): Promise<any> {
+    // TODO: Implement rollback
   }
 }
 `;
@@ -45,7 +48,7 @@ export const newCommand = (opts: CommandNewOptions): string => {
   if (!fs.existsSync(migrationsDir)) {
     fs.mkdirSync(migrationsDir);
   }
-  const fileName = `${+new Date()}_${migrationName || 'Migration'}`;
+  const fileName = `${+new Date()}-${migrationName || 'migration'}`;
   const className = `${migrationName || 'Migration'}${+new Date()}`;
 
   const template = getMigrationTemplate(className, templateFile);

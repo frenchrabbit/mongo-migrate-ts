@@ -1,6 +1,6 @@
-# mongo-migrate-ts
+# @frabbit/mongo-migrate-ts
 
-[![CircleCI](https://circleci.com/gh/mycodeself/mongo-migrate-ts.svg?style=svg)](https://circleci.com/gh/mycodeself/mongo-migrate-ts)
+yet another fork...
 
 A library for easy run migrations on mongodb with TypeScript.
 
@@ -11,13 +11,13 @@ Based on migrate-mongo (https://github.com/seppevs/migrate-mongo/), but with Typ
 Install using your favourite package manager, example using npm
 
 ```
-npm install mongo-migrate-ts
+npm install @frabbit/mongo-migrate-ts
 ```
 
 You can install it globally for the CLI usage
 
 ```
-npm install -g mongo-migrate-ts
+npm install -g @frabbit/mongo-migrate-ts
 ```
 
 ## Usage
@@ -41,11 +41,10 @@ Commands:
 Create a directory for your migrations and instantiate a CLI
 
 ```typescript
-import { mongoMigrateCli } from 'mongo-migrate-ts';
+import { mongoMigrateCli } from '@frabbit/mongo-migrate-ts';
 
 mongoMigrateCli({
   uri: 'mongodb://username:password@0.0.0.0:27017',
-  database: 'db',
   migrationsDir: __dirname,
   migrationsCollection: 'migrations_collection',
 });
@@ -54,7 +53,7 @@ mongoMigrateCli({
 Create a migration file in the configured migrations folder...
 
 ```typescript
-import { MigrationInterface } from 'mongo-migrate-ts';
+import { MigrationInterface } from '@frabbit/mongo-migrate-ts';
 import { Db } from 'mongodb';
 
 export class MyMigration implements MigrationInterface {
