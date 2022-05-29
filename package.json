@@ -1,11 +1,14 @@
 {
   "name": "@frabbit/mongo-migrate-ts",
-  "version": "1.0.21",
+  "version": "1.0.22",
   "main": "dist/lib/index.js",
   "types": "dist/lib/index.d.ts",
   "bin": {
     "mongo-migrate": "dist/bin/index.js"
   },
+  "files": [
+    "dist"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/frenchrabbit/mongo-migrate-ts.git"
