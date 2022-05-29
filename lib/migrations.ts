@@ -7,6 +7,7 @@ import { isTsNode } from './utils/isTsNode';
 export interface MigrationObject {
   file: string;
   className: string;
+  description: string;
   instance: MigrationInterface;
 }
 
@@ -32,10 +33,12 @@ export const loadMigrationFile = async (
   return Object.keys(classes)
     .filter((key: string) => typeof classes[key] === 'function')
     .map((key: string) => {
+      const instance = new classes[key]();
       return {
         file: filePath,
         className: key,
-        instance: new classes[key](),
+        description: instance.description,
+        instance,
       };
     })
     .filter((migration: MigrationObject) => isMigration(migration.instance));

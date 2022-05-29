@@ -22,6 +22,7 @@ import { connectionMock } from './__mocks__/connection.mock';
 describe('down command', () => {
   const numberOfMigrations = 10;
   const fakeMigrationInstance: MigrationInterface = {
+    description: 'fake migration',
     up: jest.fn(),
     down: jest.fn(),
   };
@@ -30,6 +31,7 @@ describe('down command', () => {
     .map((v: MigrationModel, index: number) => ({
       _id: `${index}`,
       className: `MigrationTest${index}`,
+      description: `Migration Test ${index}`,
       file: `MigrationTest${index}.ts`,
       timestamp: +new Date(),
     }));

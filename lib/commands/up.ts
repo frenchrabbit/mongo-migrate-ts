@@ -9,6 +9,7 @@ import {
 } from '../database';
 import { MigrationObject, loadMigrations } from '../migrations';
 import { ExecuteMigrationError, DbConnectionError } from '../errors';
+import { defaultDescription } from './new';
 
 interface CommandUpOptions {
   config: Config;
@@ -45,9 +46,16 @@ export const up = async (opts: CommandUpOptions): Promise<void> => {
         `Applying migration ${migration.className}`
       ).start();
       try {
+        if (migration.description === defaultDescription) {
+          throw new ExecuteMigrationError('Migration description is missing');
+        }
         await migration.instance.up(connection.db);
         await insertMigration(collection, migration);
-        localSpinner.succeed(`Migration ${migration.className} up`).stop();
+        localSpinner
+          .succeed(
+            `Migration up: ${migration.className} - ${migration.description}`
+          )
+          .stop();
       } catch (e) {
         localSpinner.fail(`Error executing migration ${migration.className}`);
         throw new ExecuteMigrationError(e);

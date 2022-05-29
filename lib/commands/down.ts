@@ -75,7 +75,11 @@ const downAll = async (
     ).start();
     await migration.instance.down(connection.db);
     await deleteMigration(collection, migration);
-    localSpinner.succeed(`Migration ${migration.className} down`).stop();
+    localSpinner
+      .succeed(
+        `Migration down: ${migration.className} - ${migration.description}`
+      )
+      .stop();
   }
 
   spinner.succeed('All migrations down').stop();

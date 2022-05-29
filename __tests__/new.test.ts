@@ -55,12 +55,13 @@ describe('new command', () => {
     const newDate = +new Date();
     const templateFile = 'testFile.ts';
     newModule.newCommand({
+      migrationName: 'migration',
       migrationsDir: configMock.migrationsDir,
       templateFile: templateFile,
     });
     const fileName = `${newDate}-migration`;
     const expectedMigrationsPath = `${configMock.migrationsDir}/${fileName}.ts`;
-    const expectedTemplateFileText = `class Migration${newDate} template file contents`;
+    const expectedTemplateFileText = `class MigrationMigration${newDate} template file contents`;
 
     expect(writeFileSyncSpy).toHaveBeenCalledWith(
       expectedMigrationsPath,
@@ -86,6 +87,7 @@ describe('new command', () => {
     );
 
     newModule.newCommand({
+      migrationName: 'migration',
       migrationsDir: configMock.migrationsDir,
     });
 

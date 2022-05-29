@@ -11,6 +11,7 @@ export interface DatabaseConnection {
 
 export interface MigrationModel {
   file: string;
+  description: string;
   className: string;
   timestamp: number;
 }
@@ -40,6 +41,7 @@ export const insertMigration = async (
 ) => {
   await collection.insertOne({
     file: migration.file,
+    description: migration.description,
     className: migration.className,
     timestamp: +new Date(),
   });

@@ -3,15 +3,19 @@ import { TemplateFileNotFoundError } from '../errors';
 
 interface CommandNewOptions {
   migrationsDir: string;
-  migrationName?: string;
+  migrationName: string;
   templateFile?: string;
 }
+
+export const defaultDescription = 'Change me!';
 
 export const defaultMigrationTemplate = (className: string) => {
   return `import { Db } from 'mongodb'
 import { MigrationInterface } from '@frabbit/mongo-migrate-ts';
 
 export class ${className} implements MigrationInterface {
+
+  description = '${defaultDescription}'
 
   public async up(db: Db): Promise<any> {
     // TODO: Implement migration
@@ -48,8 +52,12 @@ export const newCommand = (opts: CommandNewOptions): string => {
   if (!fs.existsSync(migrationsDir)) {
     fs.mkdirSync(migrationsDir);
   }
-  const fileName = `${+new Date()}-${migrationName || 'migration'}`;
-  const className = `${migrationName || 'Migration'}${+new Date()}`;
+  const fileName = `${+new Date()}-${migrationName}`;
+
+  const pascalCased = migrationName
+    .replace(/(\w)(\w*)/g, (g0, g1, g2) => g1.toUpperCase() + g2.toLowerCase())
+    .replace(/[^A-z0-9]+/g, '');
+  const className = `Migration${pascalCased}${+new Date()}`;
 
   const template = getMigrationTemplate(className, templateFile);
 
