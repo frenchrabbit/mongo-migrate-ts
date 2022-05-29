@@ -1,6 +1,6 @@
 {
   "name": "@frabbit/mongo-migrate-ts",
-  "version": "1.0.20",
+  "version": "1.0.21",
   "main": "dist/lib/index.js",
   "types": "dist/lib/index.d.ts",
   "bin": {
