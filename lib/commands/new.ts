@@ -10,11 +10,10 @@ interface CommandNewOptions {
 export const defaultDescription = 'Change me!';
 
 export const defaultMigrationTemplate = (className: string) => {
-  return `import { Db } from 'mongodb'
-import { MigrationInterface } from '@frabbit/mongo-migrate-ts';
+  return `import { MigrationInterface } from '@frabbit/mongo-migrate-ts'
+import { Db } from 'mongodb'
 
 export class ${className} implements MigrationInterface {
-
   description = '${defaultDescription}'
 
   public async up(db: Db): Promise<any> {

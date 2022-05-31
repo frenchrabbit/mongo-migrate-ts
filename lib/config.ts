@@ -80,13 +80,13 @@ export const processConfig = (config: Config): ProcessedConfig => {
     throw new Error(`Invalid configuration, uri is empty.`);
   }
 
-  if (!dbConfig.database) {
-    dbConfig.database = getDbFromUri(dbConfig.uri);
-
-    if (!dbConfig.database) {
-      throw new Error(`Invalid configuration, database is empty.`);
-    }
-  }
+  // if (!dbConfig.database) {
+  //   dbConfig.database = getDbFromUri(dbConfig.uri);
+  //
+  //   if (!dbConfig.database) {
+  //     throw new Error(`Invalid configuration, database is empty.`);
+  //   }
+  // }
 
   return {
     ...dbConfig,
